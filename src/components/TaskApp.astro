@@ -1,0 +1,281 @@
+---
+---
+
+<section class="app-section">
+  <div class="app-container">
+
+    <!-- Sección 1: Formulario para agregar tarea -->
+    <div class="card" id="seccion-agregar">
+      <h2>➕ Agregar tarea</h2>
+      <div class="input-group">
+        <input
+          type="text"
+          id="input-tarea"
+          placeholder="Escribí tu tarea acá..."
+          maxlength="80"
+        />
+        <button id="btn-agregar">Agregar</button>
+      </div>
+      <p id="mensaje-error" class="error-msg" style="display:none;">Por favor escribí una tarea.</p>
+    </div>
+
+    <!-- Sección 2: Lista de tareas pendientes -->
+    <div class="card" id="seccion-pendientes">
+      <h2>📋 Tareas pendientes</h2>
+      <ul id="lista-pendientes">
+        <li class="tarea-vacia">No hay tareas todavía. ¡Agregá una!</li>
+      </ul>
+    </div>
+
+    <!-- Sección 3: Tareas completadas -->
+    <div class="card" id="seccion-completadas">
+      <h2>✅ Completadas</h2>
+      <ul id="lista-completadas">
+        <li class="tarea-vacia">Todavía no completaste ninguna tarea.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .app-section {
+    padding: 2rem 1rem;
+    background-color: #f0f2f5;
+    min-height: 60vh;
+  }
+
+  .app-container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #2c3e50;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #input-tarea {
+    flex: 1;
+    padding: 0.6rem 0.9rem;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #input-tarea:focus {
+    border-color: #27ae60;
+  }
+
+  #btn-agregar {
+    padding: 0.6rem 1.2rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  #btn-agregar:hover {
+    background-color: #219150;
+  }
+
+  .error-msg {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tarea-vacia {
+    color: #aaa;
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+
+  .tarea-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border-left: 4px solid #27ae60;
+    gap: 0.5rem;
+  }
+
+  .tarea-item.completada {
+    border-left-color: #95a5a6;
+    opacity: 0.7;
+  }
+
+  .tarea-texto {
+    flex: 1;
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .tarea-item.completada .tarea-texto {
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .btn-completar, .btn-eliminar {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+  }
+
+  .btn-completar {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .btn-completar:hover {
+    background-color: #2980b9;
+  }
+
+  .btn-eliminar {
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  .btn-eliminar:hover {
+    background-color: #c0392b;
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .input-group {
+      flex-direction: column;
+    }
+
+    #btn-agregar {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const inputTarea = document.getElementById('input-tarea');
+  const btnAgregar = document.getElementById('btn-agregar');
+  const listaPendientes = document.getElementById('lista-pendientes');
+  const listaCompletadas = document.getElementById('lista-completadas');
+  const mensajeError = document.getElementById('mensaje-error');
+
+  // Guarda las tareas en arrays
+  let tareasPendientes = [];
+  let tareasCompletadas = [];
+
+  function renderListas() {
+    // Renderizar pendientes
+    if (tareasPendientes.length === 0) {
+      listaPendientes.innerHTML = '<li class="tarea-vacia">No hay tareas todavía. ¡Agregá una!</li>';
+    } else {
+      listaPendientes.innerHTML = tareasPendientes.map((tarea, index) => `
+        <li class="tarea-item">
+          <span class="tarea-texto">${tarea}</span>
+          <button class="btn-completar" data-index="${index}">✓ Listo</button>
+          <button class="btn-eliminar" data-index="${index}">✕</button>
+        </li>
+      `).join('');
+    }
+
+    // Renderizar completadas
+    if (tareasCompletadas.length === 0) {
+      listaCompletadas.innerHTML = '<li class="tarea-vacia">Todavía no completaste ninguna tarea.</li>';
+    } else {
+      listaCompletadas.innerHTML = tareasCompletadas.map((tarea, index) => `
+        <li class="tarea-item completada">
+          <span class="tarea-texto">${tarea}</span>
+          <button class="btn-eliminar btn-eliminar-completada" data-index="${index}">✕</button>
+        </li>
+      `).join('');
+    }
+
+    // Eventos para botones de pendientes
+    document.querySelectorAll('.btn-completar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.index);
+        const tarea = tareasPendientes.splice(i, 1)[0];
+        tareasCompletadas.push(tarea);
+        renderListas();
+      });
+    });
+
+    document.querySelectorAll('.btn-eliminar:not(.btn-eliminar-completada)').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.index);
+        tareasPendientes.splice(i, 1);
+        renderListas();
+      });
+    });
+
+    document.querySelectorAll('.btn-eliminar-completada').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.index);
+        tareasCompletadas.splice(i, 1);
+        renderListas();
+      });
+    });
+  }
+
+  function agregarTarea() {
+    const texto = inputTarea.value.trim();
+
+    if (texto === '') {
+      mensajeError.style.display = 'block';
+      return;
+    }
+
+    mensajeError.style.display = 'none';
+    tareasPendientes.push(texto);
+    inputTarea.value = '';
+    renderListas();
+  }
+
+  // Evento click en botón
+  btnAgregar.addEventListener('click', agregarTarea);
+
+  // Evento Enter en el input
+  inputTarea.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      agregarTarea();
+    }
+  });
+
+  // Render inicial
+  renderListas();
+</script>
