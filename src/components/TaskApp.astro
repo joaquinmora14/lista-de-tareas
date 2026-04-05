@@ -2,6 +2,7 @@
 ---
 
 <main class="main">
+
   <div class="input-card">
     <div class="input-row">
       <input id="inp" type="text" placeholder="¿Qué tenés que hacer hoy?" maxlength="80" />
@@ -25,91 +26,122 @@
     </div>
     <ul id="ld"><li class="empty">Todavía no completaste ninguna.</li></ul>
   </div>
+
 </main>
 
 <style is:global>
-  /* El is:global es la clave para que el Inspector de Chrome deje de poner fondos grises */
-  
   .main {
-    max-width: 660px;
+    /* CAMBIO: De 660px a 900px para llenar más horizontalmente */
+    max-width: 900px; 
     width: 100%;
-    margin: 2.5rem auto;
-    padding: 0 2rem;
+    margin: 0 auto; 
+    /* CAMBIO: Más padding superior/inferior */
+    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    flex: 1;
+    /* CAMBIO: Más espacio entre tarjetas */
+    gap: 2rem;
+
+    flex: 1; 
+    display: flex;
+    justify-content: center; 
   }
 
   .input-card, .section {
     background: #181818;
     border: 1px solid #222;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
   }
 
-  .input-card { padding: 1.5rem; }
+  /* CAMBIO: Card de entrada más alta */
+  .input-card { padding: 2.5rem; }
 
-  .input-row { display: flex; gap: 0.6rem; }
+  .input-row { display: flex; gap: 1rem; }
   .input-row input {
-    flex: 1; background: #111; border: 1.5px solid #272727; border-radius: 10px;
-    padding: 0.8rem 1rem; color: #f0f0f0; outline: none; font-family: 'Outfit', sans-serif;
+    flex: 1; 
+    background: #111; 
+    border: 1.5px solid #272727; 
+    border-radius: 12px;
+    /* CAMBIO: Input más grande y texto más legible */
+    padding: 1.2rem 1.5rem; 
+    font-size: 1.1rem;
+    color: #f0f0f0; 
+    outline: none; 
+    font-family: 'Outfit', sans-serif;
   }
   .input-row input:focus { border-color: #e8ff47; }
 
   .input-row button {
-    background: #e8ff47; color: #111; border: none; border-radius: 10px;
-    padding: 0 1.4rem; font-weight: 700; cursor: pointer; font-family: 'Outfit', sans-serif;
+    background: #e8ff47; 
+    color: #111; 
+    border: none; 
+    border-radius: 12px;
+    /* CAMBIO: Botón más ancho y fuente más grande */
+    padding: 0 2.5rem; 
+    font-size: 1.1rem;
+    font-weight: 700; 
+    cursor: pointer; 
+    font-family: 'Outfit', sans-serif;
   }
 
   .sec-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 1.4rem; border-bottom: 1px solid #1e1e1e;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    /* CAMBIO: Cabeceras de sección con más aire */
+    padding: 1.5rem 2rem; 
+    border-bottom: 1px solid #1e1e1e;
   }
-  .sec-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: #444; }
+  /* CAMBIO: Títulos un poco más grandes */
+  .sec-title { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #444; }
   
-  .badge { background: #222; color: #555; border-radius: 99px; padding: 2px 10px; font-size: 0.68rem; }
+  .badge { background: #222; color: #555; border-radius: 99px; padding: 4px 14px; font-size: 0.8rem; }
   .badge.has-items { background: rgba(232, 255, 71, 0.1); color: #e8ff47; }
 
-  ul { list-style: none; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .empty { text-align: center; padding: 1.5rem; color: #2a2a2a; font-size: 0.85rem; font-style: italic; }
+  /* CAMBIO: Lista con más espacio */
+  ul { list-style: none; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .empty { text-align: center; padding: 2.5rem; color: #2a2a2a; font-size: 1.1rem; font-style: italic; }
 
   .item {
-    display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 0.9rem;
-    background: #111; border: 1px solid #1e1e1e; border-radius: 10px;
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    /* CAMBIO: Items de tarea más grandes */
+    padding: 1.2rem 1.5rem; 
+    background: #111; 
+    border: 1px solid #1e1e1e; 
+    border-radius: 14px;
   }
 
-  /* ── AQUÍ EL RESET PARA QUE NO HAYA FONDOS NI BORDES ── */
+  /* Botones Neón */
   button.check, button.btn-x {
-    width: 32px !important;
-    height: 32px !important;
+    /* CAMBIO: Iconos más grandes */
+    width: 38px !important;
+    height: 38px !important;
     background: transparent !important;
-    background-color: transparent !important;
     border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
     cursor: pointer;
     display: flex !important;
     align-items: center;
     justify-content: center;
     padding: 0 !important;
     appearance: none !important;
-    -webkit-appearance: none !important;
     transition: transform 0.2s;
   }
 
   button.check:hover, button.btn-x:hover { transform: scale(1.2); }
-
-  /* Colores Neón Intensos */
   button.check { color: #00ff88 !important; } 
-  button.btn-x { color: #ff4444 !important; font-size: 22px; font-weight: bold; }
+  button.btn-x { color: #ff4444 !important; font-size: 24px; font-weight: bold; }
 
-  .txt { flex: 1; font-size: 0.95rem; color: #ccc; }
+  /* CAMBIO: Texto de la tarea más grande */
+  .txt { flex: 1; font-size: 1.1rem; color: #ccc; }
   .item.completada .txt { text-decoration: line-through; color: #444; }
-  .err { font-size: 0.78rem; color: #ff5555; margin-top: 0.5rem; display: none; }
+  .err { font-size: 0.9rem; color: #ff5555; margin-top: 0.5rem; display: none; }
 </style>
 
 <script>
+  // TU SCRIPT ORIGINAL (SIN CAMBIOS)
   let pend = [];
   let done = [];
 
@@ -119,7 +151,6 @@
   const lp = document.getElementById('lp');
   const ld = document.getElementById('ld');
 
-  // SVG más grueso para que el verde se note sobre el fondo oscuro
   const checkSVG = `<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;pointer-events:none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
   function esc(s) {
