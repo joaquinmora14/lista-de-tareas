@@ -1,285 +1,286 @@
 ---
 ---
  
-<section class="app">
+<main class="main">
  
-  <!-- Input para agregar tarea -->
-  <div class="input-zone">
-    <input id="input-tarea" type="text" placeholder="¿Qué tenés que hacer hoy?" maxlength="80" />
-    <button id="btn-agregar">+ Agregar</button>
-    <span class="error" id="error-msg">Escribí una tarea primero.</span>
+  <!-- Input -->
+  <div class="input-card">
+    <div class="input-row">
+      <input id="inp" type="text" placeholder="¿Qué tenés que hacer hoy?" maxlength="80" />
+      <button id="btn">+ Agregar</button>
+    </div>
+    <div class="err" id="err">Escribí una tarea primero.</div>
   </div>
  
-  <!-- Tareas pendientes -->
-  <p class="label">Pendientes <span id="count-pend" class="badge">0</span></p>
-  <ul id="lista-pendientes">
-    <li class="vacia">No hay tareas todavía. ¡Agregá una!</li>
-  </ul>
+  <!-- Pendientes -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-title">Pendientes</span>
+      <span class="badge" id="c-p">0</span>
+    </div>
+    <ul id="lp"><li class="empty">No hay tareas todavía. ¡Agregá una!</li></ul>
+  </div>
  
-  <hr />
+  <!-- Completadas -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-title">Completadas</span>
+      <span class="badge" id="c-d">0</span>
+    </div>
+    <ul id="ld"><li class="empty">Todavía no completaste ninguna.</li></ul>
+  </div>
  
-  <!-- Tareas completadas -->
-  <p class="label">Completadas <span id="count-done" class="badge">0</span></p>
-  <ul id="lista-completadas">
-    <li class="vacia">Todavía no completaste ninguna.</li>
-  </ul>
- 
-</section>
+</main>
  
 <style>
-  /* Reset y base */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
- 
-  .app {
-    background: #0f0f0f;
-    color: #f0ede8;
-    font-family: 'DM Sans', sans-serif;
-    padding: 2rem;
-    max-width: 680px;
-    margin: 0 auto;
-    min-height: 60vh;
-  }
- 
-  /* Input */
-  .input-zone {
+  .main {
+    max-width: 660px;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-    position: relative;
+    flex-direction: column;
+    gap: 1.25rem;
   }
  
-  input {
+  /* Input card */
+  .input-card {
+    background: #181818;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .input-row { display: flex; gap: 0.6rem; }
+  .input-row input {
     flex: 1;
-    min-width: 200px;
-    background: #171717;
-    border: 1px solid #2a2a2a;
+    background: #111;
+    border: 1.5px solid #272727;
     border-radius: 10px;
-    padding: 0.85rem 1.1rem;
-    color: #f0ede8;
-    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.92rem;
+    font-family: 'Outfit', sans-serif;
+    color: #f0f0f0;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
- 
-  input:focus { border-color: #c8f55a; }
-  input::placeholder { color: #444; }
- 
-  button#btn-agregar {
-    background: #c8f55a;
-    color: #0f0f0f;
+  .input-row input::placeholder { color: #333; }
+  .input-row input:focus {
+    border-color: #e8ff47;
+    box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.07);
+  }
+  .input-row button {
+    background: #e8ff47;
+    color: #111;
     border: none;
     border-radius: 10px;
     padding: 0 1.4rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-family: 'Outfit', sans-serif;
     cursor: pointer;
+    letter-spacing: 0.3px;
     transition: background 0.15s, transform 0.15s;
+    white-space: nowrap;
   }
+  .input-row button:hover { background: #f2ff70; transform: scale(1.03); }
+  .input-row button:active { transform: scale(0.96); }
+  .err { font-size: 0.78rem; color: #ff5555; margin-top: 0.5rem; display: none; }
  
-  button#btn-agregar:hover { background: #d6ff6a; transform: scale(1.03); }
- 
-  .error {
-    position: absolute;
-    bottom: -1.4rem;
-    left: 0;
-    font-size: 0.78rem;
-    color: #ff6b6b;
-    display: none;
+  /* Secciones */
+  .section {
+    background: #181818;
+    border: 1px solid #222;
+    border-radius: 16px;
+    overflow: hidden;
   }
- 
-  /* Labels y badges */
-  .label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #444;
-    margin-bottom: 0.85rem;
+  .sec-head {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid #1e1e1e;
   }
- 
+  .sec-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #444;
+  }
   .badge {
-    background: #1e1e1e;
-    color: #666;
+    background: #222;
+    color: #555;
     border-radius: 99px;
-    padding: 1px 8px;
+    padding: 2px 10px;
     font-size: 0.68rem;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
   }
+  .badge.has-items { background: rgba(232, 255, 71, 0.1); color: #e8ff47; }
  
-  hr { border: none; border-top: 1px solid #1a1a1a; margin: 1rem 0 2rem; }
- 
-  /* Listas */
-  ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
- 
-  .vacia {
-    padding: 1.2rem;
-    border: 1px dashed #222;
-    border-radius: 10px;
+  /* Lista */
+  ul { list-style: none; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .empty {
     text-align: center;
-    color: #3a3a3a;
-    font-style: italic;
+    padding: 1.5rem;
+    color: #2a2a2a;
     font-size: 0.85rem;
+    font-style: italic;
   }
  
-  /* Items de tarea */
+  /* Items */
   .item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: #171717;
+    padding: 0.8rem 0.9rem;
+    background: #111;
     border: 1px solid #1e1e1e;
     border-radius: 10px;
-    padding: 0.8rem 1rem;
-    animation: entrar 0.28s ease;
-    transition: transform 0.15s;
+    animation: pop 0.22s ease;
+    transition: border-color 0.2s, background 0.2s;
   }
- 
-  @keyframes entrar {
-    from { opacity: 0; transform: translateY(-8px); }
+  .item:hover { border-color: #2a2a2a; background: #141414; }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(-5px); }
     to   { opacity: 1; transform: translateY(0); }
   }
  
-  .item:hover { transform: translateX(2px); }
- 
-  /* Círculo de check */
+  /* Check circle */
   .check {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    border: 1.5px solid #333;
+    border: 1.5px solid #2e2e2e;
     flex-shrink: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.2s, background 0.2s;
     background: transparent;
-    font-size: 11px;
-    color: transparent;
+    transition: all 0.2s;
   }
- 
-  .check:hover { border-color: #c8f55a; }
-  .check.hecho { background: #c8f55a; border-color: #c8f55a; color: #0f0f0f; }
+  .check:hover { border-color: #e8ff47; }
+  .check.done { background: #e8ff47; border-color: #e8ff47; }
+  .check svg { display: none; width: 11px; height: 11px; }
+  .check.done svg { display: block; }
  
   /* Texto */
-  .texto { flex: 1; font-size: 0.92rem; color: #d0cdc8; }
-  .item.completada .texto { text-decoration: line-through; color: #3a3a3a; }
+  .txt { flex: 1; font-size: 0.9rem; color: #ccc; line-height: 1.4; }
+  .item.completada .txt { text-decoration: line-through; color: #333; }
  
   /* Botón eliminar */
-  .btn-del {
-    background: #1e1e1e;
+  .actions { opacity: 0; transition: opacity 0.15s; }
+  .item:hover .actions { opacity: 1; }
+  .btn-x {
+    background: #1a1a1a;
     border: none;
     border-radius: 6px;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
-    color: #555;
-    font-size: 13px;
-    opacity: 0;
-    transition: opacity 0.2s, background 0.15s, color 0.15s;
+    color: #3a3a3a;
+    font-size: 12px;
+    transition: background 0.15s, color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  .btn-x:hover { background: #2a1010; color: #ff5555; }
  
-  .item:hover .btn-del { opacity: 1; }
-  .btn-del:hover { background: #3a1a1a; color: #ff6b6b; }
+  /* Responsive */
+  @media (max-width: 500px) {
+    .input-row { flex-direction: column; }
+    .main { padding: 0 1rem; }
+  }
 </style>
  
 <script>
-  // Estado
-  let pendientes = [];
-  let completadas = [];
+  let pend = [];
+  let done = [];
  
-  // Elementos del DOM
-  const inputTarea   = document.getElementById('input-tarea');
-  const btnAgregar   = document.getElementById('btn-agregar');
-  const errorMsg     = document.getElementById('error-msg');
-  const listaPend    = document.getElementById('lista-pendientes');
-  const listaComp    = document.getElementById('lista-completadas');
+  const inp = document.getElementById('inp');
+  const btn = document.getElementById('btn');
+  const err = document.getElementById('err');
+  const lp  = document.getElementById('lp');
+  const ld  = document.getElementById('ld');
  
-  // ── Helpers ──────────────────────────────────────────
+  const checkSVG = `<svg viewBox="0 0 11 11" fill="none">
+    <polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
  
-  // Escapa HTML para evitar inyecciones
-  function esc(str) {
+  function esc(s) {
     const d = document.createElement('div');
-    d.appendChild(document.createTextNode(str));
+    d.appendChild(document.createTextNode(s));
     return d.innerHTML;
   }
  
-  // Actualiza stats del Header y barra de progreso
   function actualizarStats() {
-    const total = pendientes.length + completadas.length;
-    const pct = total === 0 ? 0 : Math.round((completadas.length / total) * 100);
+    const total = pend.length + done.length;
+    const hechas = done.length;
+    const pct = total ? Math.round(hechas / total * 100) : 0;
  
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-pend').textContent  = pendientes.length;
-    document.getElementById('stat-done').textContent  = completadas.length;
-    document.getElementById('count-pend').textContent = pendientes.length;
-    document.getElementById('count-done').textContent = completadas.length;
-    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('s-t').textContent = total;
+    document.getElementById('s-p').textContent = pend.length;
+    document.getElementById('s-d').textContent = hechas;
+ 
+    const cp = document.getElementById('c-p');
+    const cd = document.getElementById('c-d');
+    cp.textContent = pend.length;
+    cp.className = 'badge' + (pend.length ? ' has-items' : '');
+    cd.textContent = hechas;
+    cd.className = 'badge' + (hechas ? ' has-items' : '');
+ 
+    document.getElementById('prog').style.width = pct + '%';
   }
  
-  // ── Render ───────────────────────────────────────────
- 
   function render() {
-    // Pendientes
-    listaPend.innerHTML = pendientes.length === 0
-      ? '<li class="vacia">No hay tareas todavía. ¡Agregá una!</li>'
-      : pendientes.map((t, i) => `
+    lp.innerHTML = pend.length
+      ? pend.map((t, i) => `
           <li class="item">
-            <div class="check" data-accion="completar" data-i="${i}">✓</div>
-            <span class="texto">${esc(t)}</span>
-            <button class="btn-del" data-accion="borrar-pend" data-i="${i}">✕</button>
-          </li>`).join('');
+            <div class="check" data-a="ok" data-i="${i}">${checkSVG}</div>
+            <span class="txt">${esc(t)}</span>
+            <div class="actions"><button class="btn-x" data-a="dp" data-i="${i}">✕</button></div>
+          </li>`).join('')
+      : '<li class="empty">No hay tareas todavía. ¡Agregá una!</li>';
  
-    // Completadas
-    listaComp.innerHTML = completadas.length === 0
-      ? '<li class="vacia">Todavía no completaste ninguna.</li>'
-      : completadas.map((t, i) => `
+    ld.innerHTML = done.length
+      ? done.map((t, i) => `
           <li class="item completada">
-            <div class="check hecho">✓</div>
-            <span class="texto">${esc(t)}</span>
-            <button class="btn-del" data-accion="borrar-comp" data-i="${i}">✕</button>
-          </li>`).join('');
+            <div class="check done">${checkSVG}</div>
+            <span class="txt">${esc(t)}</span>
+            <div class="actions"><button class="btn-x" data-a="dd" data-i="${i}">✕</button></div>
+          </li>`).join('')
+      : '<li class="empty">Todavía no completaste ninguna.</li>';
  
     actualizarStats();
   }
  
-  // ── Acciones ─────────────────────────────────────────
- 
   function agregar() {
-    const texto = inputTarea.value.trim();
-    if (!texto) { errorMsg.style.display = 'block'; return; }
-    errorMsg.style.display = 'none';
-    pendientes.push(texto);
-    inputTarea.value = '';
+    const v = inp.value.trim();
+    if (!v) { err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    pend.push(v);
+    inp.value = '';
     render();
   }
  
-  // Un solo listener por lista (delegación de eventos)
-  listaPend.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-accion]');
+  lp.addEventListener('click', e => {
+    const el = e.target.closest('[data-a]');
     if (!el) return;
     const i = parseInt(el.dataset.i);
-    if (el.dataset.accion === 'completar') {
-      completadas.push(pendientes.splice(i, 1)[0]);
-    } else {
-      pendientes.splice(i, 1);
-    }
+    el.dataset.a === 'ok' ? done.push(pend.splice(i, 1)[0]) : pend.splice(i, 1);
     render();
   });
  
-  listaComp.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-accion]');
+  ld.addEventListener('click', e => {
+    const el = e.target.closest('[data-a]');
     if (!el) return;
-    completadas.splice(parseInt(el.dataset.i), 1);
+    done.splice(parseInt(el.dataset.i), 1);
     render();
   });
  
-  btnAgregar.addEventListener('click', agregar);
-  inputTarea.addEventListener('keydown', (e) => e.key === 'Enter' && agregar());
+  btn.addEventListener('click', agregar);
+  inp.addEventListener('keydown', e => e.key === 'Enter' && agregar());
  
-  // Render inicial
   render();
 </script>
