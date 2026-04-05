@@ -1,58 +1,77 @@
 ---
 ---
-
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo">
-      <span class="logo-icon">✓</span>
-      <span class="logo-text">MisTareas</span>
-    </div>
-    <p class="header-subtitle">Organizá tu día, una tarea a la vez.</p>
+ 
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans&display=swap" rel="stylesheet" />
+ 
+<header class="header">
+  <div>
+    <h1>Mis<span>Tareas</span></h1>
+    <p>Organizá tu día, una tarea a la vez.</p>
+  </div>
+ 
+  <div class="stats">
+    <div class="stat"><span id="stat-total">0</span><small>Total</small></div>
+    <div class="stat"><span id="stat-pend">0</span><small>Pendientes</small></div>
+    <div class="stat"><span id="stat-done">0</span><small>Hechas</small></div>
   </div>
 </header>
-
+ 
+<div class="progress-wrap">
+  <div class="progress-fill" id="progress-bar"></div>
+</div>
+ 
 <style>
-  .site-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .header-inner {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .logo {
+  .header {
+    background: #0f0f0f;
+    color: #f0ede8;
+    padding: 2rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-
-  .logo-icon {
-    font-size: 2rem;
-    background-color: #27ae60;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
+ 
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+ 
+  h1 span { color: #c8f55a; }
+ 
+  p { color: #666; font-size: 0.85rem; margin-top: 0.3rem; }
+ 
+  .stats { display: flex; gap: 1.5rem; }
+ 
+  .stat {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
   }
-
-  .logo-text {
-    font-size: 1.8rem;
-    font-weight: bold;
+ 
+  .stat span {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    color: #c8f55a;
+    line-height: 1;
+  }
+ 
+  .stat small {
+    font-size: 0.7rem;
+    color: #555;
+    text-transform: uppercase;
     letter-spacing: 1px;
   }
-
-  .header-subtitle {
-    color: #bdc3c7;
-    font-size: 1rem;
-    margin: 0;
+ 
+  .progress-wrap { height: 3px; background: #1e1e1e; }
+ 
+  .progress-fill {
+    height: 100%;
+    background: #c8f55a;
+    width: 0%;
+    transition: width 0.5s ease;
   }
 </style>
+ 
