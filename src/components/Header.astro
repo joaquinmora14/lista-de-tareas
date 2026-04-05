@@ -1,8 +1,7 @@
 ---
 ---
- 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
- 
+
 <header class="header">
   <div>
     <div class="brand">Mis<em>Tareas</em></div>
@@ -15,11 +14,8 @@
   </div>
 </header>
 <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
- 
+
 <style>
-  :global(*, *::before, *::after) { box-sizing: border-box; margin: 0; padding: 0; }
-  :global(body) { background: #111; font-family: 'Outfit', sans-serif; }
- 
   .header {
     padding: 2.5rem 2.5rem 2rem;
     display: flex;
@@ -27,7 +23,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
-    border-bottom: 1px solid #1f1f1f;
+    background: #111; /* Aseguramos el fondo */
   }
   .brand { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -1px; }
   .brand em { font-style: normal; color: #e8ff47; }

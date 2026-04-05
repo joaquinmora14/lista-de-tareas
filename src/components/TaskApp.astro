@@ -1,9 +1,8 @@
 ---
 ---
- 
+
 <main class="main">
- 
-  <!-- Input -->
+
   <div class="input-card">
     <div class="input-row">
       <input id="inp" type="text" placeholder="¿Qué tenés que hacer hoy?" maxlength="80" />
@@ -11,8 +10,7 @@
     </div>
     <div class="err" id="err">Escribí una tarea primero.</div>
   </div>
- 
-  <!-- Pendientes -->
+
   <div class="section">
     <div class="sec-head">
       <span class="sec-title">Pendientes</span>
@@ -20,8 +18,7 @@
     </div>
     <ul id="lp"><li class="empty">No hay tareas todavía. ¡Agregá una!</li></ul>
   </div>
- 
-  <!-- Completadas -->
+
   <div class="section">
     <div class="sec-head">
       <span class="sec-title">Completadas</span>
@@ -29,27 +26,30 @@
     </div>
     <ul id="ld"><li class="empty">Todavía no completaste ninguna.</li></ul>
   </div>
- 
+
 </main>
- 
+
 <style>
   .main {
     max-width: 660px;
+    width: 100%;
     margin: 2.5rem auto;
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    flex: 1;
   }
- 
-  /* Input card */
+
   .input-card {
     background: #181818;
     border: 1px solid #222;
     border-radius: 16px;
     padding: 1.5rem;
   }
+
   .input-row { display: flex; gap: 0.6rem; }
+
   .input-row input {
     flex: 1;
     background: #111;
@@ -62,11 +62,14 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
+
   .input-row input::placeholder { color: #333; }
+
   .input-row input:focus {
     border-color: #e8ff47;
     box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.07);
   }
+
   .input-row button {
     background: #e8ff47;
     color: #111;
@@ -77,21 +80,22 @@
     font-weight: 700;
     font-family: 'Outfit', sans-serif;
     cursor: pointer;
-    letter-spacing: 0.3px;
     transition: background 0.15s, transform 0.15s;
     white-space: nowrap;
   }
+
   .input-row button:hover { background: #f2ff70; transform: scale(1.03); }
   .input-row button:active { transform: scale(0.96); }
+
   .err { font-size: 0.78rem; color: #ff5555; margin-top: 0.5rem; display: none; }
- 
-  /* Secciones */
+
   .section {
     background: #181818;
     border: 1px solid #222;
     border-radius: 16px;
     overflow: hidden;
   }
+
   .sec-head {
     display: flex;
     align-items: center;
@@ -99,6 +103,7 @@
     padding: 1.1rem 1.4rem;
     border-bottom: 1px solid #1e1e1e;
   }
+
   .sec-title {
     font-size: 0.7rem;
     font-weight: 600;
@@ -106,6 +111,7 @@
     text-transform: uppercase;
     color: #444;
   }
+
   .badge {
     background: #222;
     color: #555;
@@ -115,10 +121,17 @@
     font-weight: 600;
     transition: background 0.3s, color 0.3s;
   }
+
   .badge.has-items { background: rgba(232, 255, 71, 0.1); color: #e8ff47; }
- 
-  /* Lista */
-  ul { list-style: none; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+
+  ul {
+    list-style: none;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
   .empty {
     text-align: center;
     padding: 1.5rem;
@@ -126,10 +139,10 @@
     font-size: 0.85rem;
     font-style: italic;
   }
- 
-  /* Items */
+
   .item {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 0.75rem;
     padding: 0.8rem 0.9rem;
@@ -139,100 +152,115 @@
     animation: pop 0.22s ease;
     transition: border-color 0.2s, background 0.2s;
   }
+
   .item:hover { border-color: #2a2a2a; background: #141414; }
+
   @keyframes pop {
     from { opacity: 0; transform: translateY(-5px); }
     to   { opacity: 1; transform: translateY(0); }
   }
- 
-  /* Check circle */
-  .check {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid #2e2e2e;
-    flex-shrink: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    transition: all 0.2s;
-  }
-  .check:hover { border-color: #e8ff47; }
-  .check.done { background: #e8ff47; border-color: #e8ff47; }
-  .check svg { display: none; width: 11px; height: 11px; }
-  .check.done svg { display: block; }
- 
-  /* Texto */
-  .txt { flex: 1; font-size: 0.9rem; color: #ccc; line-height: 1.4; }
-  .item.completada .txt { text-decoration: line-through; color: #333; }
- 
-  /* Botón eliminar */
-  .actions { opacity: 0; transition: opacity 0.15s; }
-  .item:hover .actions { opacity: 1; }
-  .btn-x {
-    background: #1a1a1a;
-    border: none;
-    border-radius: 6px;
+
+  /* ── BOTONES UNIFICADOS (TIC Y X) ── */
+  .check, .btn-x {
     width: 26px;
     height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    border-radius: 6px; /* Cuadrado igual a la X */
+    border: 1px solid #2e2e2e;
+    background: #1a1a1a; /* Fondo oscuro igual a la X */
     cursor: pointer;
-    color: #3a3a3a;
-    font-size: 12px;
-    transition: background 0.15s, color 0.15s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
   }
+
+  .check:hover { border-color: #e8ff47; }
+  
+  /* Cuando el tic está marcado */
+  .check.done { 
+    background: #e8ff47; 
+    border-color: #e8ff47; 
+    color: #111;
+  }
+
+  .check svg {
+    display: none;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+  }
+
+  .check.done svg { display: block; }
+
+  .txt {
+    flex: 1;
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.4;
+  }
+
+  .item.completada .txt { text-decoration: line-through; color: #333; }
+
+  .actions { opacity: 0; transition: opacity 0.15s; }
+  .item:hover .actions { opacity: 1; }
+
+  .btn-x {
+    border: none;
+    color: #3a3a3a;
+    font-size: 12px;
+  }
+
   .btn-x:hover { background: #2a1010; color: #ff5555; }
- 
-  /* Responsive */
+
   @media (max-width: 500px) {
     .input-row { flex-direction: column; }
     .main { padding: 0 1rem; }
   }
 </style>
- 
+
 <script>
   let pend = [];
   let done = [];
- 
+
   const inp = document.getElementById('inp');
   const btn = document.getElementById('btn');
   const err = document.getElementById('err');
   const lp  = document.getElementById('lp');
   const ld  = document.getElementById('ld');
- 
-  const checkSVG = `<svg viewBox="0 0 11 11" fill="none">
-    <polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
- 
+
+  // SVG con color heredado (currentColor) para que cambie según el fondo
+  const checkSVG = `<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:11px;height:11px;flex-shrink:0"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
   function esc(s) {
     const d = document.createElement('div');
     d.appendChild(document.createTextNode(s));
     return d.innerHTML;
   }
- 
+
   function actualizarStats() {
-    const total = pend.length + done.length;
+    const total  = pend.length + done.length;
     const hechas = done.length;
-    const pct = total ? Math.round(hechas / total * 100) : 0;
- 
-    document.getElementById('s-t').textContent = total;
-    document.getElementById('s-p').textContent = pend.length;
-    document.getElementById('s-d').textContent = hechas;
- 
+    const pct    = total ? Math.round(hechas / total * 100) : 0;
+
+    // Estos IDs deben existir en tu Header.astro para no dar error
+    if(document.getElementById('s-t')) document.getElementById('s-t').textContent = total;
+    if(document.getElementById('s-p')) document.getElementById('s-p').textContent = pend.length;
+    if(document.getElementById('s-d')) document.getElementById('s-d').textContent = hechas;
+
     const cp = document.getElementById('c-p');
     const cd = document.getElementById('c-d');
     cp.textContent = pend.length;
-    cp.className = 'badge' + (pend.length ? ' has-items' : '');
+    cp.className   = 'badge' + (pend.length ? ' has-items' : '');
     cd.textContent = hechas;
-    cd.className = 'badge' + (hechas ? ' has-items' : '');
- 
-    document.getElementById('prog').style.width = pct + '%';
+    cd.className   = 'badge' + (hechas ? ' has-items' : '');
+
+    if(document.getElementById('prog')) document.getElementById('prog').style.width = pct + '%';
   }
- 
+
   function render() {
     lp.innerHTML = pend.length
       ? pend.map((t, i) => `
@@ -242,7 +270,7 @@
             <div class="actions"><button class="btn-x" data-a="dp" data-i="${i}">✕</button></div>
           </li>`).join('')
       : '<li class="empty">No hay tareas todavía. ¡Agregá una!</li>';
- 
+
     ld.innerHTML = done.length
       ? done.map((t, i) => `
           <li class="item completada">
@@ -251,10 +279,10 @@
             <div class="actions"><button class="btn-x" data-a="dd" data-i="${i}">✕</button></div>
           </li>`).join('')
       : '<li class="empty">Todavía no completaste ninguna.</li>';
- 
+
     actualizarStats();
   }
- 
+
   function agregar() {
     const v = inp.value.trim();
     if (!v) { err.style.display = 'block'; return; }
@@ -263,7 +291,7 @@
     inp.value = '';
     render();
   }
- 
+
   lp.addEventListener('click', e => {
     const el = e.target.closest('[data-a]');
     if (!el) return;
@@ -271,16 +299,16 @@
     el.dataset.a === 'ok' ? done.push(pend.splice(i, 1)[0]) : pend.splice(i, 1);
     render();
   });
- 
+
   ld.addEventListener('click', e => {
     const el = e.target.closest('[data-a]');
     if (!el) return;
     done.splice(parseInt(el.dataset.i), 1);
     render();
   });
- 
+
   btn.addEventListener('click', agregar);
   inp.addEventListener('keydown', e => e.key === 'Enter' && agregar());
- 
+
   render();
 </script>
