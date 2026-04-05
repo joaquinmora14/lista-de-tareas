@@ -1,20 +1,27 @@
 ---
 ---
+ 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
+ 
 <header class="header">
   <div>
     <div class="brand">Mis<em>Tareas</em></div>
     <div class="tagline">Organizá tu día, una tarea a la vez.</div>
   </div>
-  <div class="stats">
-    <div class="stat"><span class="stat-n" id="s-t">0</span><span class="stat-l">Total</span></div>
-    <div class="stat"><span class="stat-n" id="s-p">0</span><span class="stat-l">Pend.</span></div>
-    <div class="stat"><span class="stat-n" id="s-d">0</span><span class="stat-l">Hechas</span></div>
+  <div class="header-right">
+    <div class="stats">
+      <div class="stat"><span class="stat-n" id="s-t">0</span><span class="stat-l">Total</span></div>
+      <div class="stat"><span class="stat-n" id="s-p">0</span><span class="stat-l">Pend.</span></div>
+      <div class="stat"><span class="stat-n" id="s-d">0</span><span class="stat-l">Hechas</span></div>
+    </div>
+    <button id="theme-btn" class="theme-btn" title="Cambiar tema">
+      <span class="icon-dark">🌙</span>
+      <span class="icon-light">☀️</span>
+    </button>
   </div>
 </header>
 <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
-
+ 
 <style>
   .header {
     padding: 2.5rem 2.5rem 2rem;
@@ -23,19 +30,62 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
-    background: #111; /* Aseguramos el fondo */
+    background: var(--header-bg, #111);
+    border-bottom: 1px solid var(--border, #1f1f1f);
   }
-  .brand { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -1px; }
+ 
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+ 
+  .brand { font-size: 2rem; font-weight: 700; color: var(--brand, #fff); letter-spacing: -1px; }
   .brand em { font-style: normal; color: #e8ff47; }
-  .tagline { font-size: 0.82rem; color: #444; margin-top: 0.25rem; font-weight: 300; }
+  .tagline { font-size: 0.82rem; color: var(--muted, #444); margin-top: 0.25rem; font-weight: 300; }
+ 
   .stats { display: flex; gap: 0.75rem; }
   .stat {
     display: flex; flex-direction: column; align-items: center;
-    background: #181818; border: 1px solid #222; border-radius: 12px;
+    background: var(--stat-bg, #181818);
+    border: 1px solid var(--border, #222);
+    border-radius: 12px;
     padding: 0.6rem 1.1rem; min-width: 64px;
   }
   .stat-n { font-size: 1.5rem; font-weight: 700; color: #e8ff47; line-height: 1; }
-  .stat-l { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: #444; margin-top: 3px; }
-  .prog-wrap { height: 2px; background: #1a1a1a; }
+  .stat-l { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted, #444); margin-top: 3px; }
+ 
+  .theme-btn {
+    background: var(--stat-bg, #181818);
+    border: 1px solid var(--border, #222);
+    border-radius: 10px;
+    width: 42px; height: 42px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .theme-btn:hover { transform: scale(1.1); }
+ 
+  /* Por defecto (dark): muestra luna, oculta sol */
+  .icon-light { display: none; }
+  .icon-dark  { display: block; }
+ 
+  /* En modo claro: muestra sol, oculta luna */
+  :global(body.light) .icon-light { display: block; }
+  :global(body.light) .icon-dark  { display: none; }
+ 
+  .prog-wrap { height: 2px; background: var(--prog-bg, #1a1a1a); }
   .prog-fill { height: 100%; background: #e8ff47; width: 0%; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
 </style>
+ 
+<script>
+  const btn = document.getElementById('theme-btn');
+ 
+  // Aplica el tema guardado al cargar
+  if (localStorage.getItem('tema') === 'light') {
+    document.body.classList.add('light');
+  }
+ 
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('tema', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
+</script>
+ 

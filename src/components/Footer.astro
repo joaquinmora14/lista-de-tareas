@@ -7,12 +7,14 @@
  
 <style>
   .footer {
-    background: #0f0f0f;
-    color: #333;
+    background: var(--footer-bg, #0f0f0f);
+    color: var(--footer-text, #333);
     text-align: center;
     padding: 1.5rem;
     font-size: 0.78rem;
-    border-top: 1px solid #1a1a1a;
+    border-top: 1px solid var(--border, #1a1a1a);
     margin-top: auto;
+    transition: background 0.3s, color 0.3s;
   }
 </style>
+ 
