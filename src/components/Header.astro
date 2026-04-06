@@ -1,8 +1,6 @@
 ---
 ---
- 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
- 
+
 <header class="header">
   <div>
     <div class="brand">Mis<em>Tareas</em></div>
@@ -21,71 +19,66 @@
   </div>
 </header>
 <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
- 
+
 <style>
   .header {
-    padding: 2.5rem 2.5rem 2rem;
+    padding: 2rem 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
-    background: var(--header-bg, #111);
-    border-bottom: 1px solid var(--border, #1f1f1f);
+    background: var(--header-bg);
+    transition: background 0.3s;
   }
- 
+
   .header-right { display: flex; align-items: center; gap: 1rem; }
- 
-  .brand { font-size: 2rem; font-weight: 700; color: var(--brand, #fff); letter-spacing: -1px; }
+
+  .brand { font-size: 2rem; font-weight: 700; color: var(--brand-color); letter-spacing: -1px; transition: color 0.3s; }
   .brand em { font-style: normal; color: #e8ff47; }
-  .tagline { font-size: 0.82rem; color: var(--muted, #444); margin-top: 0.25rem; font-weight: 300; }
- 
+  .tagline { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; font-weight: 300; }
+
   .stats { display: flex; gap: 0.75rem; }
   .stat {
     display: flex; flex-direction: column; align-items: center;
-    background: var(--stat-bg, #181818);
-    border: 1px solid var(--border, #222);
+    background: var(--stat-bg);
+    border: 1px solid var(--stat-border);
     border-radius: 12px;
     padding: 0.6rem 1.1rem; min-width: 64px;
+    transition: all 0.3s;
   }
   .stat-n { font-size: 1.5rem; font-weight: 700; color: #e8ff47; line-height: 1; }
-  .stat-l { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted, #444); margin-top: 3px; }
- 
+  .stat-l { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-top: 3px; }
+
   .theme-btn {
-    background: var(--stat-bg, #181818);
-    border: 1px solid var(--border, #222);
+    background: var(--stat-bg);
+    border: 1px solid var(--stat-border);
     border-radius: 10px;
     width: 42px; height: 42px;
     cursor: pointer;
     font-size: 18px;
     display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s;
+    transition: all 0.3s;
   }
   .theme-btn:hover { transform: scale(1.1); }
- 
-  /* Por defecto (dark): muestra luna, oculta sol */
+
   .icon-light { display: none; }
   .icon-dark  { display: block; }
- 
-  /* En modo claro: muestra sol, oculta luna */
+
   :global(body.light) .icon-light { display: block; }
   :global(body.light) .icon-dark  { display: none; }
- 
-  .prog-wrap { height: 2px; background: var(--prog-bg, #1a1a1a); }
+
+  .prog-wrap { height: 3px; background: var(--prog-bg); transition: background 0.3s; }
   .prog-fill { height: 100%; background: #e8ff47; width: 0%; transition: width 0.5s cubic-bezier(.4,0,.2,1); }
 </style>
- 
+
 <script>
   const btn = document.getElementById('theme-btn');
- 
-  // Aplica el tema guardado al cargar
   if (localStorage.getItem('tema') === 'light') {
     document.body.classList.add('light');
   }
- 
   btn.addEventListener('click', () => {
     document.body.classList.toggle('light');
     localStorage.setItem('tema', document.body.classList.contains('light') ? 'light' : 'dark');
   });
 </script>
- 

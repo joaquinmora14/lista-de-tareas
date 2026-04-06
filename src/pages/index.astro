@@ -6,40 +6,91 @@ import Footer from '../components/Footer.astro';
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MisTareas</title>
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
     <Header />
     <div class="content-wrapper">
-        <TaskApp />
+      <TaskApp />
     </div>
     <Footer />
-</body>
+  </body>
 </html>
 
 <style is:global>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  html, body {
-    height: 100%;
-    background-color: #111;
-    color: white;
-    font-family: 'Outfit', sans-serif;
-  }
 
+  /* ── Modo oscuro (default) ── */
   body {
+    --bg:            #111;
+    --header-bg:     #111;
+    --footer-bg:     #0f0f0f;
+    --footer-text:   #444;
+    --footer-border: #1a1a1a;
+    --card-bg:       #181818;
+    --item-bg:       #111;
+    --item-hover:    #161616;
+    --border:        #222;
+    --border-dim:    #1e1e1e;
+    --text:          #ddd;
+    --text-muted:    #555;
+    --text-strike:   #3a3a3a;
+    --placeholder:   #333;
+    --empty-text:    #2a2a2a;
+    --badge-bg:      #1e1e1e;
+    --badge-text:    #555;
+    --brand-color:   #fff;
+    --stat-bg:       #181818;
+    --stat-border:   #333;
+    --prog-bg:       #1a1a1a;
+    --input-bg:      #111;
+
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    transition: background 0.3s;
   }
+
+  /* ── Modo claro (Cálido) ── */
+  body.light {
+    --bg:            #f0ede8;
+    --header-bg:     #f0ede8; /* Antes era oscuro, ahora es cálido */
+    --footer-bg:     #f0ede8; 
+    --footer-text:   #888;
+    --footer-border: #e8e4de;
+    --card-bg:       #fff;
+    --item-bg:       #faf9f7;
+    --item-hover:    #f3f1ee;
+    --border:        #e8e4de;
+    --border-dim:    #ede9e3;
+    --text:          #1a1a1a;
+    --text-muted:    #999;
+    --text-strike:   #bbb;
+    --placeholder:   #bbb;
+    --empty-text:    #ccc;
+    --badge-bg:      #f0ede8;
+    --badge-text:    #aaa;
+    --brand-color:   #1a1a1a; /* Nombre de la app en oscuro */
+    --stat-bg:       #e8e4de; /* Stats claros */
+    --stat-border:   #d8d4ce;
+    --prog-bg:       #e8e4de;
+    --input-bg:      #f8f6f2;
+  }
+
+  html, body { height: 100%; }
 
   .content-wrapper {
-    flex: 1;           /* Esto obliga a esta sección a ocupar todo el alto sobrante */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Opcional: centra las tarjetas verticalmente si hay pocas */
+    background: var(--bg);
+    transition: background 0.3s;
   }
 </style>
