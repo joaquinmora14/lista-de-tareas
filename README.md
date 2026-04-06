@@ -8,4 +8,4 @@
 
 ## Instrucciones
 
-# Abrir terminal nueva, npm install en la terminal, despues npm run dev, y despues me dio un link el cual podes copiar y pegar en el explorador para verlo. ya ahi podes como usuario ingresar la tarea, luego marcarla con el tic si hecha o con la x si se busca descartarla. 
+# Abrir terminal nueva, npm install en la terminal, despues npm run dev, y despues me dio un link el cual podes copiar y pegar en el explorador para verlo. PORFAVOR PONER EN PANTALLA COMPLETA. ya ahi podes como usuario ingresar la tarea, luego marcarla con el tic si hecha o con la x si se busca descartarla. 
